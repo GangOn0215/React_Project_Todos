@@ -36,6 +36,7 @@ const TodosHeader = () => {
         onChange={handleChangeState}
         placeholder="author"
       />
+      <br />
       <input
         ref={inputTodos}
         name="todos"
@@ -43,6 +44,7 @@ const TodosHeader = () => {
         onChange={handleChangeState}
         placeholder="todos"
       />
+      <br />
       <button onClick={handleSubmit}>submit</button>
     </div>
   );
