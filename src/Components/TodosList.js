@@ -1,7 +1,7 @@
 import React from "react";
 import TodosItem from "./TodosItem";
 
-const TodosList = ({ onEdit, onRemove, todosList }) => {
+const TodosList = ({ onCheck, onEdit, onRemove, todosList }) => {
   console.log(todosList);
   return (
     <div className="todos-lists">
@@ -13,6 +13,7 @@ const TodosList = ({ onEdit, onRemove, todosList }) => {
             {...item}
             onRemove={onRemove}
             onEdit={onEdit}
+            onCheck={onCheck}
           />
         );
       })}

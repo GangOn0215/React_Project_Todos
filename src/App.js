@@ -14,6 +14,7 @@ function App() {
       author,
       todos,
       create_date,
+      check: false,
       id: dataId.current,
     };
 
@@ -37,10 +38,24 @@ function App() {
 
     setData(newTodoLists);
   };
+
+  const onCheck = (targetId) => {
+    const newTodoLists = data.map((item) =>
+      item.id === targetId ? { ...item, check: !item.check } : item
+    );
+
+    setData(newTodoLists);
+  };
+
   return (
     <div className="todos-container">
       <TodosHeader onCreate={onCreate} />
-      <TodosList onEdit={onEdit} onRemove={onRemove} todosList={data} />
+      <TodosList
+        onCheck={onCheck}
+        onEdit={onEdit}
+        onRemove={onRemove}
+        todosList={data}
+      />
     </div>
   );
 }

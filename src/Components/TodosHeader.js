@@ -17,11 +17,11 @@ const TodosHeader = ({ onCreate }) => {
   };
 
   const handleSubmit = () => {
-    if (state.author.length < 1) {
+    if (state.author.length < 3) {
       inputAuthor.current.focus();
 
       return;
-    } else if (state.todos.length < 1) {
+    } else if (state.todos.length < 5) {
       inputTodos.current.focus();
 
       return;

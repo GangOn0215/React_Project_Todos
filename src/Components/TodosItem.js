@@ -1,6 +1,15 @@
 import React, { useState, useRef } from "react";
 
-const TodosItem = ({ onEdit, onRemove, author, todos, create_date, id }) => {
+const TodosItem = ({
+  onCheck,
+  onEdit,
+  onRemove,
+  author,
+  todos,
+  create_date,
+  check,
+  id,
+}) => {
   // isEdit: 수정중인지 확인하는 변수 - Boolean
   const [isEdit, setIsEdit] = useState(false);
   // toggleIsEdit(): isEdit을 반전시키는 함수
@@ -28,7 +37,7 @@ const TodosItem = ({ onEdit, onRemove, author, todos, create_date, id }) => {
   // handleEdit() : todos edit 시키는 함수
   const handleEdit = (e) => {
     // 만약 수정중인 textarea의 데이터의 길이가 5 이하라면
-    if (localContent.length <= 5) {
+    if (localContent.length < 5) {
       // textarea element에 focus를 해줍니다.
       InputLocalContent.current.focus();
 
@@ -39,7 +48,12 @@ const TodosItem = ({ onEdit, onRemove, author, todos, create_date, id }) => {
       onEdit(id, localContent);
       toggleIsEdit();
     }
+
     console.log(localContent);
+  };
+
+  const handleCheck = () => {
+    onCheck(id);
   };
 
   return (
@@ -70,11 +84,14 @@ const TodosItem = ({ onEdit, onRemove, author, todos, create_date, id }) => {
         ) : (
           /* 만약 false 이라면 todos, 삭제하기 버튼, 수정하기 버튼을 띄워줍니다. */
           <>
-            <span>{todos}</span>
+            <span className={check ? "finish" : ""}>{todos}</span>
             <br />
             <br />
             <button onClick={handleRemove}>삭제 하기</button>
             <button onClick={toggleIsEdit}>수정 하기</button>
+            <button onClick={handleCheck}>
+              {check ? <>완료 취소</> : <>완료 하기</>}
+            </button>
           </>
         )}
       </div>

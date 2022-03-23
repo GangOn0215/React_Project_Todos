@@ -1,3 +1,7 @@
+.todos-container {
+  width: 500px;
+  margin: 10px auto;
+}
 .todos-header {
   border: 1px solid gray;
   text-align: center;
@@ -7,7 +11,7 @@
 .todos-header input,
 .todos-header button {
   box-sizing: border-box;
-  width: 500px;
+  width: 300px;
   padding: 10px;
   margin-bottom: 10px;
 }
@@ -18,12 +22,13 @@
 
 .todos-item {
   background-color: rgb(240, 240, 240);
-  margin-bottom: 10px;
+  margin: 10px 0px;
   padding: 20px;
 }
-.todos-itemm .info {
+
+.todos-item .info {
   border-bottom: 1px solid gray;
-  padding-bottom: 10px;
+  padding: 10px;
   margin-bottom: 10px;
 }
 .todos-item .date {
@@ -31,15 +36,15 @@
 }
 .todos-item .content {
   font-weight: bold;
-  margin: 30px 0px;
+  /* margin: 30px 0px; */
 }
 .todos-item .create-at {
   font-size: 0.7em;
   margin-top: 30px;
   color: #444;
 }
-.todos-item .info {
-  border-bottom: 1px solid gray;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+
+.finish {
+  text-decoration: line-through;
+  color: gray;
 }
