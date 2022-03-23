@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-const TodosHeader = () => {
+const TodosHeader = ({ onCreate }) => {
   const inputAuthor = useRef();
   const inputTodos = useRef();
 
@@ -19,11 +19,20 @@ const TodosHeader = () => {
   const handleSubmit = () => {
     if (state.author.length < 1) {
       inputAuthor.current.focus();
+
+      return;
     } else if (state.todos.length < 1) {
       inputTodos.current.focus();
+
+      return;
     }
 
-    console.log(state);
+    onCreate(state.author, state.todos);
+
+    setState({
+      author: "",
+      todos: "",
+    });
   };
 
   return (

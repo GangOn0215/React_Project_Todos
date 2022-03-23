@@ -1,32 +1,31 @@
 import "./App.css";
+import React, { useState, useRef } from "react";
 import TodosHeader from "./Components/TodosHeader";
 import TodosList from "./Components/TodosList";
 
 function App() {
-  const dummyList = [
-    {
-      id: 1,
-      author: "Arannay",
-      content: "study react",
-      create_date: new Date().getTime(),
-    },
-    {
-      id: 2,
-      author: "Buan",
-      content: "study node",
-      create_date: new Date().getTime(),
-    },
-    {
-      id: 3,
-      author: "Mace",
-      content: "study mvc pattern",
-      create_date: new Date().getTime(),
-    },
-  ];
+  const [data, setData] = useState([]);
+
+  const dataId = useRef(0);
+
+  const onCreate = (author, todos) => {
+    const create_date = new Date().getTime();
+    const newData = {
+      author,
+      todos,
+      create_date,
+      id: dataId.current,
+    };
+
+    dataId.current += 1;
+
+    setData([newData, ...data]);
+  };
+
   return (
     <div className="todos-container">
-      <TodosHeader />
-      <TodosList todosList={dummyList} />
+      <TodosHeader onCreate={onCreate} />
+      <TodosList todosList={data} />
     </div>
   );
 }
