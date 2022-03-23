@@ -22,10 +22,18 @@ function App() {
     setData([newData, ...data]);
   };
 
+  const onDelete = (id) => {
+    const newTodoLists = data.filter((item) => item.id !== id);
+
+    setData(newTodoLists);
+
+    console.log("success delete");
+  };
+
   return (
     <div className="todos-container">
       <TodosHeader onCreate={onCreate} />
-      <TodosList todosList={data} />
+      <TodosList onDelete={onDelete} todosList={data} />
     </div>
   );
 }

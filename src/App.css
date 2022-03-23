@@ -5,7 +5,7 @@
 }
 
 .todos-header input,
-button {
+.todos-header button {
   box-sizing: border-box;
   width: 500px;
   padding: 10px;
@@ -37,4 +37,9 @@ button {
   font-size: 0.7em;
   margin-top: 30px;
   color: #444;
+}
+.todos-item .info {
+  border-bottom: 1px solid gray;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
