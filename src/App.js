@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useState, useRef } from "react";
 import TodosHeader from "./Components/TodosHeader";
 import TodosList from "./Components/TodosList";
+import LifeCycle from "./Study/LifeCycle";
 
 function App() {
   const [data, setData] = useState([]);
@@ -49,6 +50,7 @@ function App() {
 
   return (
     <div className="todos-container">
+      <LifeCycle />
       <TodosHeader onCreate={onCreate} />
       <TodosList
         onCheck={onCheck}
