@@ -1,11 +1,12 @@
 import "./App.css";
-import React, { useMemo, useEffect, useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useMemo, useCallback, } from "react";
+
 import axios from "axios";
 import TodosHeader from "./Components/TodosHeader";
 import TodosList from "./Components/TodosList";
 // import LifeCycle from "./Study/LifeCycle";
-import Optimize from "./Components/Optimize";
-import OptimizeObj from "./Components/OptimizeObj";
+// import Optimize from "./Study/Optimize";
+// import OptimizeObj from "./Study/OptimizeObj";
 
 function App() {
   const [data, setData] = useState([]);
@@ -16,7 +17,7 @@ function App() {
   const getData = async () => {
     const getFakeJsonData = await axios(url).then((res) => res.data);
 
-    const processedData = getFakeJsonData.slice(0, 19).map((item) => {
+    const processedData = getFakeJsonData.slice(0, 20).map((item) => {
       return {
         author: item.email,
         todos: item.body,
@@ -35,7 +36,7 @@ function App() {
     return () => {};
   }, []);
 
-  const onCreate = (author, todos, importance) => {
+  const onCreate = useCallback((author, todos, importance) => {
     const create_date = new Date().getTime();
     const newData = {
       author,
@@ -48,32 +49,28 @@ function App() {
 
     dataId.current += 1;
 
-    setData([newData, ...data]);
-  };
+    setData((data) => [newData, ...data]);
+  }, []);
 
-  const onRemove = (id) => {
-    const newTodoLists = data.filter((item) => item.id !== id);
+  const onRemove = useCallback((id) => {
+    setData((data) => data.filter((item) => item.id !== id));
+  }, []);
 
-    setData(newTodoLists);
-
-    console.log("success delete");
-  };
-
-  const onEdit = (targetId, newTodo) => {
-    const newTodoLists = data.map((item) =>
-      item.id === targetId ? { ...item, todos: newTodo } : item
+  const onEdit = useCallback((targetId, newTodo) => {
+    setData((data) =>
+      data.map((item) =>
+        item.id === targetId ? { ...item, todos: newTodo } : item
+      )
     );
+  }, []);
 
-    setData(newTodoLists);
-  };
-
-  const onCheck = (targetId) => {
-    const newTodoLists = data.map((item) =>
-      item.id === targetId ? { ...item, check: !item.check } : item
+  const onCheck = useCallback((targetId) => {
+    setData((data) =>
+      data.map((item) =>
+        item.id === targetId ? { ...item, check: !item.check } : item
+      )
     );
-
-    setData(newTodoLists);
-  };
+  }, []);
 
   // useMemo
   const getDiaryAnalysis = useMemo(() => {
@@ -93,8 +90,8 @@ function App() {
   return (
     <div className="todos-container">
       {/* <LifeCycle /> */}
-      <Optimize />
-      <OptimizeObj />
+      {/* <Optimize /> */}
+      {/* <OptimizeObj /> */}
       <TodosHeader onCreate={onCreate} />
       <div>All Diary Length: {data.length}</div>
       <div>good: {goodCount}</div>

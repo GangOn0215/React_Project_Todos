@@ -1,6 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 const TodosHeader = ({ onCreate }) => {
+  useEffect(() => {
+    console.log("Rerender :: TodoHeader");
+  });
+
   const inputAuthor = useRef();
   const inputTodos = useRef();
 
@@ -54,9 +58,9 @@ const TodosHeader = ({ onCreate }) => {
         onChange={handleChangeState}
         placeholder="todos"
       />
-      <select 
-        name={"importance"} 
-        value={state.importance} 
+      <select
+        name={"importance"}
+        value={state.importance}
         onChange={handleChangeState}
       >
         <option value={1}>1</option>
@@ -70,4 +74,4 @@ const TodosHeader = ({ onCreate }) => {
   );
 };
 
-export default TodosHeader;
+export default React.memo(TodosHeader);

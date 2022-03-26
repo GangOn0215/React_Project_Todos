@@ -97,4 +97,4 @@ const TodosItem = ({
   );
 };
 
-export default TodosItem;
+export default React.memo(TodosItem);
