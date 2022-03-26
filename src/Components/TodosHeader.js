@@ -7,6 +7,7 @@ const TodosHeader = ({ onCreate }) => {
   const [state, setState] = useState({
     author: "",
     todos: "",
+    importance: 1,
   });
 
   const handleChangeState = (e) => {
@@ -27,11 +28,12 @@ const TodosHeader = ({ onCreate }) => {
       return;
     }
 
-    onCreate(state.author, state.todos);
+    onCreate(state.author, state.todos, state.importance);
 
     setState({
       author: "",
       todos: "",
+      importance: 1,
     });
   };
 
@@ -45,7 +47,6 @@ const TodosHeader = ({ onCreate }) => {
         onChange={handleChangeState}
         placeholder="author"
       />
-      <br />
       <input
         ref={inputTodos}
         name="todos"
@@ -53,7 +54,17 @@ const TodosHeader = ({ onCreate }) => {
         onChange={handleChangeState}
         placeholder="todos"
       />
-      <br />
+      <select 
+        name={"importance"} 
+        value={state.importance} 
+        onChange={handleChangeState}
+      >
+        <option value={1}>1</option>
+        <option value={2}>2</option>
+        <option value={3}>3</option>
+        <option value={4}>4</option>
+        <option value={5}>5</option>
+      </select>
       <button onClick={handleSubmit}>submit</button>
     </div>
   );

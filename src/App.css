@@ -3,19 +3,23 @@
   margin: 10px auto;
 }
 .todos-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
   border: 1px solid gray;
-  text-align: center;
   padding: 20px;
 }
 
 .todos-header input,
-.todos-header button {
+.todos-header button,
+.todos-header select {
   box-sizing: border-box;
   width: 300px;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
-
 .todos-header button {
   cursor: pointer;
 }

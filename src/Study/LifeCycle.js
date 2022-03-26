@@ -22,20 +22,14 @@ const UnMountTest = () => {
 
   return (
     <div>
-      <div> {count}
-        <button onClick={
-          () => {
-            setCount(count + 1);
-          }
-        }>+</button>
+      <div> 
+        {count}
+        <button onClick={() => { setCount(count + 1);}}>+</button>
       </div>
       <div>
-        <textarea value={text}
-          onChange={
-            (e) => {
-              setText(e.target.value)
-            }
-          }/>
+        <textarea 
+          value={text}
+          onChange={(e) => {setText(e.target.value)}}/>
       </div>
   </div>
   )
