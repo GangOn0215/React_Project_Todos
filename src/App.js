@@ -1,17 +1,15 @@
 import "./App.css";
-import React, {
-  useMemo,
-  useEffect,
-  useState,
-  useRef,
-} from "react";
+import React, { useMemo, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import TodosHeader from "./Components/TodosHeader";
 import TodosList from "./Components/TodosList";
 // import LifeCycle from "./Study/LifeCycle";
+import Optimize from "./Components/Optimize";
+import OptimizeObj from "./Components/OptimizeObj";
 
 function App() {
   const [data, setData] = useState([]);
+
   const dataId = useRef(0);
 
   const url = "https://jsonplaceholder.typicode.com/comments";
@@ -33,6 +31,8 @@ function App() {
 
   useEffect(() => {
     getData();
+
+    return () => {};
   }, []);
 
   const onCreate = (author, todos, importance) => {
@@ -77,14 +77,15 @@ function App() {
 
   // useMemo
   const getDiaryAnalysis = useMemo(() => {
-    console.log("일기 분석 시작");
+    // console.log("일기 분석 시작");
 
     const goodCount = data.filter((item) => item.importance >= 3).length;
     const badCount = data.length - goodCount;
     const goodRatio = (goodCount / data.length) * 100;
 
     return { goodCount, badCount, goodRatio };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.length]); // data.length 데이터가 변경될때 실행이 됩니다
 
   const { goodCount, badCount, goodRatio } = getDiaryAnalysis;
@@ -92,6 +93,8 @@ function App() {
   return (
     <div className="todos-container">
       {/* <LifeCycle /> */}
+      <Optimize />
+      <OptimizeObj />
       <TodosHeader onCreate={onCreate} />
       <div>All Diary Length: {data.length}</div>
       <div>good: {goodCount}</div>
