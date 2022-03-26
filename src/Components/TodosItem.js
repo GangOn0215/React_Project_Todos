@@ -48,8 +48,6 @@ const TodosItem = ({
       onEdit(id, localContent);
       toggleIsEdit();
     }
-
-    console.log(localContent);
   };
 
   const handleCheck = () => {
