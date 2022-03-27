@@ -29,11 +29,13 @@ const UnMountTest = () => {
       <div>
         <textarea 
           value={text}
-          onChange={(e) => {setText(e.target.value)}}/>
+          onChange={(e) => {setText(e.target.value)}}
+        />
       </div>
   </div>
   )
 }
+
 const LifeCycle = () => {
   const [isToggle, setIsToggle] = useState(false);
   const handleToggle = () => {
@@ -41,19 +43,18 @@ const LifeCycle = () => {
   }
 
   useEffect(() => {
-    console.log('Mount');
+    console.log('LifeCycle Mount');
   }, []);
 
   useEffect(() => {
-    console.log('Update');
+    console.log('LifeCycle Update');
   });
 
   return (
     <div>
       <button onClick={handleToggle}>Toggle</button>
-      {
-      isToggle && <UnMountTest/>
-    } </div>
+      { isToggle && <UnMountTest/> } 
+    </div>
   )
 }
 
