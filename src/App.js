@@ -1,12 +1,9 @@
 import "./App.css";
-import React, { useRef, useEffect, useMemo, useCallback, useReducer } from "react";
+import React, { useRef, useEffect, useMemo, useCallback, useReducer, useContext } from "react";
 
 import axios from "axios";
 import TodosHeader from "./Components/TodosHeader";
 import TodosList from "./Components/TodosList";
-// import LifeCycle from "./Study/LifeCycle";
-// import Optimize from "./Study/Optimize";
-// import OptimizeObj from "./Study/OptimizeObj";
 
 // 첫번째 매개변수는 state, 두번째 매개변수는 action을 넣어줍니다.
 const reducer = (state, action) => {
@@ -50,6 +47,9 @@ const reducer = (state, action) => {
       return state;
   }    
 }
+
+export const TodosStateContext = React.createContext();
+export const TodosDispatchContext = React.createContext();
 
 function App() {
  /* 
@@ -112,10 +112,13 @@ function App() {
     dispatch({type: "REMOVE", targetID});
   }, []);
   
+  const memoDispatch = useMemo(() => {
+    return {onCreate, onEdit, onCheck, onRemove};
+  }, []);
 
   // useMemo
-  const getDiaryAnalysis = useMemo(() => {
-    // console.log("일기 분석 시작");
+  const getDiaryAnalysis = () => {
+    console.log("start diary analysis");
 
     const goodCount = data.filter((item) => item.importance >= 3).length;
     const badCount = data.length - goodCount;
@@ -123,28 +126,29 @@ function App() {
 
     return { goodCount, badCount, goodRatio };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.length]); // data.length 데이터가 변경될때 실행이 됩니다
+  }; 
 
-  const { goodCount, badCount, goodRatio } = getDiaryAnalysis;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const { goodCount, badCount, goodRatio } = useMemo(getDiaryAnalysis, [data.length]); // data.length 데이터가 변경될때 실행이 됩니다
 
   return (
-    <div className="todos-container">
-      {/* <LifeCycle /> */}
-      {/* <Optimize /> */}
-      {/* <OptimizeObj /> */}
-      <TodosHeader onCreate={onCreate} />
-      <div>All Diary Length: {data.length}</div>
-      <div>good: {goodCount}</div>
-      <div>bad: {badCount}</div>
-      <div>good ratio: {goodRatio.toFixed(1)}% </div>
-      <TodosList
-        onCheck={onCheck}
-        onEdit={onEdit}
-        onRemove={onRemove}
-        todosList={data}
-      />
-    </div>
+    <TodosStateContext.Provider value={data}>
+      <TodosDispatchContext.Provider value={memoDispatch}>
+      <div className="todos-container">
+        <TodosHeader onCreate={onCreate} />
+        <div>All Diary Length: {data.length}</div>
+        <div>good: {goodCount}</div>
+        <div>bad: {badCount}</div>
+        <div>good ratio: {goodRatio}% </div>
+        <TodosList
+          onCheck={onCheck}
+          onEdit={onEdit}
+          onRemove={onRemove}
+          todosList={data}
+        />
+      </div>
+      </TodosDispatchContext.Provider>
+    </TodosStateContext.Provider>
   );
 }
 

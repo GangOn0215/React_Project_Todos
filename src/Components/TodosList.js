@@ -1,17 +1,17 @@
-import React from "react";
+import React, {useContext} from "react";
 import TodosItem from "./TodosItem";
+import {TodosStateContext} from "../App";
 
-const TodosList = ({ onCheck, onEdit, onRemove, todosList }) => {
+const TodosList = () => {
+  const todosLists = useContext(TodosStateContext);
+  
+  console.log();
+
   return (
     <div className="todos-lists">
-      {todosList.map((item) => {
+      {todosLists.map((item) => {
         return (
-          <TodosItem
-            key={item.id}
-            {...item}
-            onRemove={onRemove}
-            onEdit={onEdit}
-            onCheck={onCheck}
+          <TodosItem key={item.id} {...item}
           />
         );
       })}

@@ -1,15 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
+import {TodosDispatchContext} from "../App";
 
 const TodosItem = ({
-  onCheck,
-  onEdit,
-  onRemove,
   author,
   todos,
   create_date,
   check,
   id,
 }) => {
+  const {onEdit, onCheck, onRemove} = useContext(TodosDispatchContext);
   // isEdit: 수정중인지 확인하는 변수 - Boolean
   const [isEdit, setIsEdit] = useState(false);
   // toggleIsEdit(): isEdit을 반전시키는 함수
